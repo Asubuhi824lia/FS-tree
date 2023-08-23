@@ -14,21 +14,25 @@ function App() {
 
   let count = 0;
   const getFileStruct = (data, lvl=0) => {
-    if(data.type != "directory") return null;
+    if(data.type != "directory") return [null, null];
 
-    let struct = []
-    const listEl = {id: count++, level: lvl, text: `${data.name} (${data.contents.length})`}
+    let struct  = [],
+        content = []
+    const listEl = {id: count, level: lvl, text: `${data.name} (${data.contents.length})`}
     struct.push(listEl)
-    
+    const elFill = {id: count++, content: data.contents.filter(node => node.type == 'file')}
+    content.push(elFill)
+
     if(data.contents) data.contents.forEach(elem => { 
-      const innerStruct = getFileStruct(elem, lvl+1);
-      if(innerStruct) innerStruct.forEach(node => {struct.push(node)}); 
+      const [innerStruct, innerContent] = getFileStruct(elem, lvl+1);
+      if(innerStruct)   innerStruct.forEach(node => {struct.push(node)}); 
+      if(innerContent)  innerContent.forEach(node => {content.push(node)})
     });
-    return struct;
+    return [struct, content];
   }    
 
-  const tree = useMemo(() => getFileStruct(json[0]), [])
-  console.log( tree )
+  const [dirs, files] = useMemo(() => getFileStruct(json[0]), [])
+  console.log( dirs, files )
   
   return (
     <div className="App">
@@ -40,7 +44,7 @@ function App() {
       </header>
 
       <ul style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
-        {tree.map(node => createListItem(node.id, node.level, node.text))}
+        {dirs.map(node => createListItem(node.id, node.level, node.text))}
       </ul>
     </div>
   );
