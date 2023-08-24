@@ -8,7 +8,8 @@ const FilesArea = () => {
 
     const ref = useRef(null)
 
-    const full_height = useWindowSize().height
+    const size = useWindowSize()
+    const full_height = size.height
     const [height, setHeight] = useState(0)
 
     useLayoutEffect(() => setHeight(ref.current.offsetHeight), [])
@@ -16,18 +17,21 @@ const FilesArea = () => {
     console.log(full_height, height)
 
     return (<div className={styles['scroll-table']}>
-        <table ref={ref}>
-            <thead>
-                <tr>
-                    <th>File name</th>
-                    <th>Size</th>
-                    <th>Last Modification</th>
-                </tr>
-            </thead>
-        </table>	
+        <div className={styles['table-header']}>
+            <table ref={ref}>
+                <thead>
+                    <tr>
+                        <th>File name</th>
+                        <th>Size</th>
+                        <th>Last Modification</th>
+                    </tr>
+                </thead>
+            </table>
+            <div className={styles.plug}></div>
+        </div>	
         <div    className={styles['scroll-table-body']}
-                style={{height: `calc(${full_height-height}px 
-                - 2*var(--App-margins) - var(--scrollbar-width))`}}>
+                style={ size.width < 580 ? {height: '60vh'} : {height: `calc(${full_height-height}px 
+                - var(--App-margins) - var(--scrollbar-width))`}}>
             <table>
                 <tbody>
                     <tr>
