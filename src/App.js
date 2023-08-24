@@ -1,16 +1,18 @@
 import styles from'./App.module.css';
 
-import FilesSpace from './components/FilesSpace/FilesSpace';
 import FoldersBar from './components/FoldersBar/FoldersBar';
+import FilesArea from './components/FilesArea/FilesArea';
+
 
 const App = () => {
   
   return (
     <div className={styles.App}>
       <FoldersBar/>
-      <FilesSpace />
+      <FilesArea />
     </div>
   );
 }
+
 
 export default App;

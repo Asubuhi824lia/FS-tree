@@ -42,7 +42,7 @@ const FoldersBar = () => {
 
     return (
         <ul className={styles.list}>
-            {dirs.map(node => createListItem(node.id, node.level, node.text))}
+            {dirs.map(node => createListItem(node.id, node.level, node.text)).slice(0, 100)}
         </ul>
     )
 }
