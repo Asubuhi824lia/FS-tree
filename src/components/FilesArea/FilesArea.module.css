@@ -2,7 +2,6 @@
 	--scrollbar-width: 5px;
 }
 
-
 .area {
     border-collapse: collapse;
 }
@@ -21,9 +20,9 @@ th, td {
 	overflow: auto;
 }
 th:last-child { border-right: 0; }
-th { border-bottom: 0; }
 
 tr:not(:last-child) { height: 1rem; }
+tr:first-child td { border-top: none; }
 
 
 th:first-child, td:first-child { width: 15%; }
@@ -31,11 +30,9 @@ th:last-child, td:last-child { width: 50%; }
 
 .plug { 
     height: auto;
-	width: var(--scrollbar-width); 
 	background: #d8d8d8;
-    border: 1px solid black;
-    border-left: none;
-    border-bottom: none;
+    border-top:   1px solid black;
+    border-right: 1px solid black;
 }
 
 /* Portrait tablets and small desktops */
@@ -51,8 +48,8 @@ th:last-child, td:last-child { width: 50%; }
 	height: 300px;
 	overflow-x: auto;
 	margin-top: 0px;
-	border-bottom: 1px solid black;
-	border-right: 1px solid black;
+	border: 1px solid black;
+	border-top: none;
 }
 .scroll-table-body table, .scroll-table table {
     border-collapse: collapse;
@@ -74,6 +71,10 @@ th:last-child, td:last-child { width: 50%; }
 	text-align: left;
 	vertical-align: top;
 }
+td:first-child {
+	border-left: none;
+}
+
  
 /* Стили для скролла */
 ::-webkit-scrollbar {

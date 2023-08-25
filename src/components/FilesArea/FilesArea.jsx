@@ -1,24 +1,36 @@
-import { useLayoutEffect, useRef, useState } from 'react';
 import styles from './FilesArea.module.css'
+
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import { useWindowSize } from '@uidotdev/usehooks';
 
 
-const FilesArea = () => {
+const FilesArea = ({chosenDirId, files}) => {
 
-    const ref = useRef(null)
+    console.log(chosenDirId)
+    console.log(files)
 
-    const size = useWindowSize()
-    const full_height = size.height
-    const [height, setHeight] = useState(0)
+    const headerRef = useRef(null)
+    const bodyRef   = useRef(null),
+          tableRef  = useRef(null)
+    const size = useWindowSize(),
+          full_height = size.height,
+          [headerH, setHeaderH] = useState(0),
+          [bodyH, setBodyH] = useState(0),
+          [tableH, setTableH] = useState(0)
+    useLayoutEffect(() => {
+        setHeaderH(headerRef.current.offsetHeight)
+        setBodyH(bodyRef.current.offsetHeight)
+        setTableH(tableRef.current.offsetHeight)
+    })
+    
+    useEffect(() => setTableH(tableRef.current.offsetHeight), [tableRef])
 
-    useLayoutEffect(() => setHeight(ref.current.offsetHeight), [])
-
-    console.log(full_height, height)
+    console.log(full_height, bodyH, tableH)
 
     return (<div className={styles['scroll-table']}>
-        <div className={styles['table-header']}>
-            <table ref={ref}>
+        <div className={styles['table-header']} ref={headerRef}>
+            <table>
                 <thead>
                     <tr>
                         <th>File name</th>
@@ -27,153 +39,20 @@ const FilesArea = () => {
                     </tr>
                 </thead>
             </table>
-            <div className={styles.plug}></div>
+            <div className={styles.plug} style={tableH < bodyH ? {width: 0} : {width: 'var(--scrollbar-width)'}}/>
         </div>	
-        <div    className={styles['scroll-table-body']}
-                style={ size.width < 580 ? {height: '60vh'} : {height: `calc(${full_height-height}px 
+        <div    className={styles['scroll-table-body']} ref={bodyRef}
+                style={ size.width < 580 ? {height: '60vh'} : {height: `calc(${full_height-headerH}px 
                 - var(--App-margins) - var(--scrollbar-width))`}}>
-            <table>
+            <table ref={tableRef}>
                 <tbody>
-                    <tr>
-                        <td>Freecode Camp Freecode Camp</td>
-                        <td>Freecode Camp</td>
-                        <td>Enki</td>
-                    </tr>
-                    <tr>
-                        <td>Freecode Camp Freecode Camp</td>
-                        <td>Freecode Camp</td>
-                        <td>Enki</td>
-                    </tr>
-                    <tr>
-                        <td>Freecode Camp Freecode Camp</td>
-                        <td>Freecode Camp</td>
-                        <td>Enki</td>
-                    </tr>
-                    <tr>
-                        <td>Freecode Camp Freecode Camp</td>
-                        <td>Freecode Camp</td>
-                        <td>Enki</td>
-                    </tr>
-                    <tr>
-                        <td>Freecode Camp Freecode Camp</td>
-                        <td>Freecode Camp</td>
-                        <td>Enki</td>
-                    </tr>
-                    <tr>
-                        <td>Freecode Camp Freecode Camp</td>
-                        <td>Freecode Camp</td>
-                        <td>Enki</td>
-                    </tr>
-                    <tr>
-                        <td>Freecode Camp Freecode Camp</td>
-                        <td>Freecode Camp</td>
-                        <td>Enki</td>
-                    </tr>
-                    <tr>
-                        <td>Freecode Camp Freecode Camp</td>
-                        <td>Freecode Camp</td>
-                        <td>Enki</td>
-                    </tr>
-                    <tr>
-                        <td>Freecode Camp Freecode Camp</td>
-                        <td>Freecode Camp</td>
-                        <td>Enki</td>
-                    </tr>
-                    <tr>
-                        <td>Freecode Camp Freecode Camp</td>
-                        <td>Freecode Camp</td>
-                        <td>Enki</td>
-                    </tr>
-                    <tr>
-                        <td>Freecode Camp Freecode Camp</td>
-                        <td>Freecode Camp</td>
-                        <td>Enki</td>
-                    </tr>
-                    <tr>
-                        <td>Freecode Camp Freecode Camp</td>
-                        <td>Freecode Camp</td>
-                        <td>Enki</td>
-                    </tr>
-                    <tr>
-                        <td>Freecode Camp Freecode Camp</td>
-                        <td>Freecode Camp</td>
-                        <td>Enki</td>
-                    </tr>
-                    <tr>
-                        <td>Freecode Camp Freecode Camp</td>
-                        <td>Freecode Camp</td>
-                        <td>Enki</td>
-                    </tr>
-                    <tr>
-                        <td>Freecode Camp Freecode Camp</td>
-                        <td>Freecode Camp</td>
-                        <td>Enki</td>
-                    </tr>
-                    <tr>
-                        <td>Freecode Camp Freecode Camp</td>
-                        <td>Freecode Camp</td>
-                        <td>Enki</td>
-                    </tr>
-                    <tr>
-                        <td>Freecode Camp Freecode Camp</td>
-                        <td>Freecode Camp</td>
-                        <td>Enki</td>
-                    </tr>
-                    <tr>
-                        <td>Freecode Camp Freecode Camp</td>
-                        <td>Freecode Camp</td>
-                        <td>Enki</td>
-                    </tr>
-                    <tr>
-                        <td>Freecode Camp Freecode Camp</td>
-                        <td>Freecode Camp</td>
-                        <td>Enki</td>
-                    </tr>
-                    <tr>
-                        <td>Freecode Camp Freecode Camp</td>
-                        <td>Freecode Camp</td>
-                        <td>Enki</td>
-                    </tr>
-                    <tr>
-                        <td>Freecode Camp Freecode Camp</td>
-                        <td>Freecode Camp</td>
-                        <td>Enki</td>
-                    </tr>
-                    <tr>
-                        <td>Freecode Camp Freecode Camp</td>
-                        <td>Freecode Camp</td>
-                        <td>Enki</td>
-                    </tr>
-                    <tr>
-                        <td>Freecode Camp Freecode Camp</td>
-                        <td>Freecode Camp</td>
-                        <td>Enki</td>
-                    </tr>
-                    <tr>
-                        <td>Freecode Camp Freecode Camp</td>
-                        <td>Freecode Camp</td>
-                        <td>Enki</td>
-                    </tr>
-                    <tr>
-                        <td>Freecode Camp Freecode Camp</td>
-                        <td>Freecode Camp</td>
-                        <td>Enki</td>
-                    </tr>
-                    <tr>
-                        <td>Freecode Camp Freecode Camp</td>
-                        <td>Freecode Camp</td>
-                        <td>Enki</td>
-                    </tr>
-                    <tr>
-                        <td>Freecode Camp Freecode Camp</td>
-                        <td>Freecode Camp</td>
-                        <td>Enki</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                    {files.content.map(list => (
+                        <tr>
+                            <td>{list.name}</td>
+                            <td>{list.size}</td>
+                            <td>{list.time}</td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
         </div>

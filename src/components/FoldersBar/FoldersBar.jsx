@@ -5,15 +5,13 @@ import { useMemo } from 'react';
 import json from '../../data/examp.json'
 
 
-const FoldersBar = () => {
-
-    console.log(json)
+const FoldersBar = ({setChosenDirId, setDirFiles}) => {
 
     const createListItem = (id, lvl, text) => {    
       return (
         <li style={{marginLeft: `${lvl*20}px`, cursor: 'pointer'}} key={id} 
         className={styles.folded} onClick={(e) => {
-          console.log(id)
+          setChosenDirId(id)
           e.target.classList.toggle(styles.folded)  //свёрнуто
           
           Array .from(document.getElementsByClassName(styles.chosen))
@@ -39,20 +37,20 @@ const FoldersBar = () => {
       if(data.contents) data.contents.forEach(elem => { 
         const [innerStruct, innerContent] = getFileStruct(elem, lvl+1);
         if(innerStruct)   innerStruct.forEach(node => {struct.push(node)}); 
-        if(innerContent)  innerContent.forEach(node => {content.push(node)})
+        if(innerContent)  innerContent.forEach(node => {content.push(node)});
       });
     
       return [struct, content];
     }    
   
     const [dirs, files] = useMemo(() => getFileStruct(json[0]), [])
-    console.log( dirs, files )
+    setDirFiles(files)
 
 
     return (
-        <ul className={styles.list}>
-            {dirs.map(node => createListItem(node.id, node.level, node.text)).slice(0, 100)}
-        </ul>
+      <ul className={styles.list}>
+          {dirs.map(node => createListItem(node.id, node.level, node.text)).slice(0, 100)}
+      </ul>
     )
 }
 
