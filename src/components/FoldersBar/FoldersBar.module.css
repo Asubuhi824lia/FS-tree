@@ -9,7 +9,12 @@
 }
 
 .list li {
-    list-style-type: disclosure-open;
+    /* list-style-type: disclosure-open; */
     list-style-position: inside;
     padding-left: 16px;
 }
+
+.chosen { color: blue; }
+
+.folded     { list-style-type: disclosure-closed; }
+.unfolded   { list-style-type: disclosure-open; }

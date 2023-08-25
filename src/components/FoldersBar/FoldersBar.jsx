@@ -11,7 +11,16 @@ const FoldersBar = () => {
 
     const createListItem = (id, lvl, text) => {    
       return (
-        <li style={{marginLeft: `${lvl*20}px`}} key={id}>
+        <li style={{marginLeft: `${lvl*20}px`, cursor: 'pointer'}} key={id} 
+        className={styles.folded} onClick={(e) => {
+          console.log(id)
+          e.target.classList.toggle(styles.folded)  //свёрнуто
+          
+          Array .from(document.getElementsByClassName(styles.chosen))
+                .forEach(e => e.classList.remove(styles.chosen))
+          e.target.classList.toggle(styles.chosen)
+          e.target.classList.toggle(styles.unfolded)
+        }}>
           {text}
         </li>);
     }
