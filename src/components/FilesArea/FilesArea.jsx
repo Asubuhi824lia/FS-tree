@@ -5,11 +5,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useWindowSize } from '@uidotdev/usehooks';
 
 
-const FilesArea = ({chosenDirId, files}) => {
-
-    console.log(chosenDirId)
-    console.log(files)
-
+const FilesArea = ({files}) => {
     const headerRef = useRef(null)
     const bodyRef   = useRef(null),
           tableRef  = useRef(null)
@@ -26,7 +22,6 @@ const FilesArea = ({chosenDirId, files}) => {
     
     useEffect(() => setTableH(tableRef.current.offsetHeight), [tableRef])
 
-    console.log(full_height, bodyH, tableH)
 
     return (<div className={styles['scroll-table']}>
         <div className={styles['table-header']} ref={headerRef}>
