@@ -28,7 +28,7 @@ const FoldersBar = ({setChosenDirId, setDirFiles}) => {
 
               if(innerItems != null) onUpperDirClick(e)
           }}>{text}</li>
-          {innerItems ? <li style={{listStyleType: 'none'}}>{innerItems}</li> : ''}
+          {innerItems && <li style={{listStyleType: 'none'}}>{innerItems}</li>}
         </ul>);
     }
   

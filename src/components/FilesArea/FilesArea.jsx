@@ -1,26 +1,16 @@
 import styles from './FilesArea.module.css'
 
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-
-import { useWindowSize } from '@uidotdev/usehooks';
+import { useMeasure, useWindowSize } from '@uidotdev/usehooks';
 
 
 const FilesArea = ({files}) => {
-    const headerRef = useRef(null)
-    const bodyRef   = useRef(null),
-          tableRef  = useRef(null)
-    const size = useWindowSize(),
-          full_height = size.height,
-          [headerH, setHeaderH] = useState(0),
-          [bodyH, setBodyH] = useState(0),
-          [tableH, setTableH] = useState(0)
-    useLayoutEffect(() => {
-        setHeaderH(headerRef.current.offsetHeight)
-        setBodyH(bodyRef.current.offsetHeight)
-        setTableH(tableRef.current.offsetHeight)
-    })
     
-    useEffect(() => setTableH(tableRef.current.offsetHeight), [tableRef])
+    const [headerRef, header]   = useMeasure()
+    const [bodyRef, body]       = useMeasure()
+    const [contentRef, content] = useMeasure()
+
+    const size = useWindowSize(),
+          full_height = size.height
 
 
     return (<div className={styles['scroll-table']}>
@@ -34,12 +24,12 @@ const FilesArea = ({files}) => {
                     </tr>
                 </thead>
             </table>
-            <div className={styles.plug} style={tableH < bodyH ? {width: 0} : {width: 'var(--scrollbar-width)'}}/>
+            <div className={styles.plug} style={content.height < body.height ? {width: 0} : {width: 'var(--scrollbar-width)'}}/>
         </div>	
         <div    className={styles['scroll-table-body']} ref={bodyRef}
-                style={ size.width < 580 ? {height: '60vh'} : {height: `calc(${full_height-headerH}px 
+                style={ size.width < 580 ? {height: '60vh'} : {height: `calc(${full_height-header.height}px 
                 - var(--App-margins) - var(--scrollbar-width))`}}>
-            <table ref={tableRef}>
+            <table ref={contentRef}>
                 <tbody>
                     {files.content.map(list => (
                         <tr>
