@@ -12,15 +12,15 @@ const FilesArea = ({files}) => {
     const size = useWindowSize(),
           full_height = size.height
 
+    const table_headers = ['File name', 'Size', 'Last Modification']
+
 
     return (<div className={styles['scroll-table']}>
-        <div className={styles['table-header']} ref={headerRef}>
+        <div className={styles['table-head']} ref={headerRef}>
             <table>
                 <thead>
-                    <tr>
-                        <th>File name</th>
-                        <th>Size</th>
-                        <th>Last Modification</th>
+                    <tr className={styles['table-row']}>
+                        {table_headers.map(header => <th className={styles['table-header']}>{header}</th>)}
                     </tr>
                 </thead>
             </table>
@@ -32,10 +32,12 @@ const FilesArea = ({files}) => {
             <table ref={contentRef}>
                 <tbody>
                     {files.content.map(list => (
-                        <tr>
-                            <td>{list.name}</td>
-                            <td>{list.size}</td>
-                            <td>{list.time}</td>
+                        <tr className={styles['table-row']}>
+                            {
+                                Object.values(list).slice(1).map((val) => (
+                                    <td className={styles['table-data']}>{val}</td>
+                                ))
+                            }
                         </tr>
                     ))}
                 </tbody>
