@@ -9,7 +9,6 @@
 }
 
 .list li {
-    /* list-style-type: disclosure-open; */
     list-style-position: inside;
     padding-left: 16px;
     cursor: pointer;
