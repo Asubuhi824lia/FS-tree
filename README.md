@@ -15,4 +15,6 @@ $ npm init
 
 #### Development
 
-`$ npm run dev`
+```
+$ npm run dev
+```
