@@ -1,8 +1,8 @@
-import FoldersBar from './FoldersBar'
+'use server'
+
 import data from '@/data/examp.json'
 
-
-export default function LocalStructure() {
+export default async function getLocalStructure() {
 
     let count = 0;
     const getFileStruct = (data, lvl=0, parentId=null) => {
@@ -28,8 +28,5 @@ export default function LocalStructure() {
         return [struct, content];
     } 
 
-    const [dirs, files] = getFileStruct(data[0])
-
-
-    return <FoldersBar dirs={dirs} files={files}/>
+    return await getFileStruct(data[0])
 }

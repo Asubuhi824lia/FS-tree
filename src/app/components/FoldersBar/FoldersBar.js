@@ -2,7 +2,9 @@
 
 import styles from './FoldersBar.module.css'
 
-export default function FoldersBar({dirs, files}) {
+export default function FoldersBar({dirs, setChosenDirId}) {
+
+    console.log(dirs)
 
     const onUpperDirClick = (e) => {
         e.target.classList.toggle(styles.collapsed)  //свёрнуто
@@ -18,6 +20,7 @@ export default function FoldersBar({dirs, files}) {
           <ul key={id}>
             <li className={innerItems ? styles.expanded : styles.endpoint}  onClick={(e) => {
                 // setChosenDirId(id)
+                setChosenDirId(id)
                 console.log(id)
   
                 Array .from(document.getElementsByClassName(styles.chosen))
@@ -31,7 +34,7 @@ export default function FoldersBar({dirs, files}) {
       }
 
     const createList = (dirs) => {
-        return dirs.map(dir => {
+        return dirs && dirs.map(dir => {
             if(dir.inner.length == 0) {
                 return createListItem(dir.id, dir.text)
             }
